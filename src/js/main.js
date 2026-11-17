@@ -1,5 +1,4 @@
-
-import { obtenirRecettes } from "./api.js"
+import { obtenirRecettes} from "./api.js"
 import { afficherLesRecettes } from "./affichage.js"
 
 async function chargerRecettes() {
