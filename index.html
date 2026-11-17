@@ -1,13 +1,253 @@
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnet de recettes</title>
 
-    <link rel="stylesheet" href="./src/output.css">
+    <link href="./src/output.css" rel="stylesheet">
+
+    <title>Cuisine Club - YouCode</title>
 </head>
-<body>
 
+<body class="bg-black text-white">
+
+    <main class="max-w-350 mx-auto bg-[#145638] rounded-t-2xl overflow-hidden">
+
+        <header class="flex justify-between items-center px-6 md:px-10 py-5">
+
+            <a href="#" class="text-xl font-serif tracking-wide">
+                KITCHEN<span class="text-[#C8DC58]">CLUB</span>
+            </a>
+
+            <a href="#ajouter"
+                class="bg-[#D6EB32] text-black px-5 py-2 rounded-full text-xs font-semibold hover:bg-white transition">
+                AJOUTER +
+            </a>
+
+        </header>
+
+        <section id="accueil" class="text-center px-5 pt-16 pb-12">
+
+            <h1 class="font-serif text-3xl md:text-5xl leading-tight max-w-3xl mx-auto">
+                PARTAGEZ VOS RECETTES
+                <br>
+                ET REGALEZ VOUS CHAQUE JOUR
+            </h1>
+
+            <p class="text-white/70 mt-5 text-sm md:text-base">
+                Decouvrez, recherchez et partagez vos meilleures recettes
+            </p>
+
+            <form id="searchForm"
+                class="bg-white rounded-full p-1.5 flex items-center max-w-xl mx-auto mt-8 shadow-lg">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Rechercher une recette, une cuisine..."
+                    class="flex-1 min-w-0 px-4 py-2 text-sm text-gray-700 outline-none rounded-full"
+                >
+
+                <button type="submit"
+                    class="bg-[#C8DC58] text-black px-6 py-3 rounded-full text-sm font-semibold hover:bg-[#D6EB32] transition">
+                    Chercher
+                </button>
+
+            </form>
+
+        </section>
+
+        <section id="recettes" class="px-5 md:px-12 pb-16">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+                    <p class="text-[#C8DC58] text-xs uppercase tracking-widest">
+                        Notre collection
+                    </p>
+
+                    <h2 class="font-serif text-2xl md:text-3xl mt-2">
+                        Nos recettes
+                    </h2>
+                </div>
+
+                <p id="recipeCount" class="text-white/70 text-sm">
+                    0 recette
+                </p>
+
+            </div>
+
+            <div id="loading" class="hidden text-center py-12">
+                <div class="animate-spin rounded-full h-10 w-10 border-4 border-white/30 border-t-[#C8DC58] mx-auto"></div>
+                <p class="mt-4 text-white/80">Chargement des recettes...</p>
+            </div>
+
+            <div id="errorMessage"
+                class="hidden text-center bg-red-100 text-red-700 rounded-xl p-5 mb-8">
+
+                <p id="errorText">Une erreur est survenue.</p>
+
+                <button id="retryBtn"
+                    class="mt-3 bg-red-700 text-white px-5 py-2 rounded-full text-sm">
+                    Ressayer
+                </button>
+
+            </div>
+
+            <div id="emptyMessage" class="hidden text-center py-12">
+
+                <p class="text-xl font-serif">Aucune recette trouvee</p>
+
+                <p class="text-white/60 text-sm mt-2">
+                    Essayez avec un autre mot-cle
+                </p>
+
+                <button id="showAllBtn"
+                    class="mt-5 bg-[#C8DC58] text-black px-6 py-2 rounded-full text-sm">
+                    Voir toutes les recettes
+                </button>
+
+            </div>
+
+            <div id="recipesContainer"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            </div>
+
+        </section>
+
+        <section id="ajouter" class="bg-[#C8DC58] text-[#173D2C] px-6 md:px-16 py-16">
+
+            <div class="max-w-3xl mx-auto">
+
+                <div class="text-center mb-10">
+
+                    <p class="uppercase tracking-widest text-xs">
+                        Partagez votre passion
+                    </p>
+
+                    <h2 class="font-serif text-3xl md:text-4xl mt-3">
+                        Proposer une recette
+                    </h2>
+
+                    <p class="mt-3 text-sm text-[#173D2C]/70">
+                        Vous avez une recette preferee ? Partagez la avec le club !
+                    </p>
+
+                </div>
+
+
+                <form id="recipeForm"
+                    class="bg-white rounded-2xl p-6 md:p-10 shadow-xl space-y-5">
+                    <div>
+                        <label for="recipeName" class="block text-sm font-semibold mb-2">
+                            Nom de la recette
+                        </label>
+
+                        <input
+                            type="text"
+                            id="recipeName"
+                            name="name"
+                            placeholder="Ex : Pasta with tomato sauce"
+                            class="w-full border border-gray-200 rounded-lg p-3 text-sm text-gray-800 outline-none focus:border-[#145638]"
+                        >
+
+                        <p id="nameError" class="text-red-600 text-xs mt-1"></p>
+                    </div>
+
+                    <div>
+                        <label for="recipeCuisine" class="block text-sm font-semibold mb-2">
+                            Type de cuisine
+                        </label>
+
+                        <input
+                            type="text"
+                            id="recipeCuisine"
+                            name="cuisine"
+                            placeholder="Ex : Italian"
+                            class="w-full border border-gray-200 rounded-lg p-3 text-sm text-gray-800 outline-none focus:border-[#145638]"
+                        >
+
+                        <p id="cuisineError" class="text-red-600 text-xs mt-1"></p>
+                    </div>
+
+                    <div>
+                        <label for="recipeDifficulty" class="block text-sm font-semibold mb-2">
+                            Difficulté
+                        </label>
+
+                        <select
+                            id="recipeDifficulty"
+                            name="difficulty"
+                            class="w-full border border-gray-200 rounded-lg p-3 text-sm text-gray-800 outline-none focus:border-[#145638]">
+
+                            <option value="">Choisir une difficulte</option>
+                            <option value="Easy">Facile</option>
+                            <option value="Medium">Moyenne</option>
+                            <option value="Hard">Difficile</option>
+
+                        </select>
+
+                        <p id="difficultyError" class="text-red-600 text-xs mt-1"></p>
+                    </div>
+
+                    <div>
+                        <label for="recipeTime" class="block text-sm font-semibold mb-2">
+                            Temps de preparation (minutes)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="recipeTime"
+                            name="time"
+                            min="1"
+                            max="300"
+                            placeholder="Ex : 30"
+                            class="w-full border border-gray-200 rounded-lg p-3 text-sm text-gray-800 outline-none focus:border-[#145638]"
+                        >
+
+                        <p id="timeError" class="text-red-600 text-xs mt-1"></p>
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="w-full bg-[#145638] text-white py-3 rounded-full font-semibold hover:bg-[#0D4028] transition disabled:opacity-50">
+
+                        Ajouter ma recette
+
+                    </button>
+
+                    <p id="successMessage" class="hidden text-green-700 text-center text-sm font-semibold"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <footer id="apropos" class="bg-[#103F2B] text-center py-8 px-5">
+
+            <h2 class="font-serif text-xl">
+                KITCHEN<span class="text-[#C8DC58]">CLUB</span>
+            </h2>
+
+            <p class="text-white/60 text-xs mt-3">
+                Le carnet de recettes du club cuisine YouCode.
+            </p>
+
+            <p class="text-white/40 text-xs mt-5">
+                © 2026 Kitchen Club - YouCode
+            </p>
+
+        </footer>
+
+    </main>
+
+   <script type="module" src="./src/js/main.js"></script>
 </body>
 </html>
