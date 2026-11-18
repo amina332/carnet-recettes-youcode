@@ -2,6 +2,7 @@ const recipeCount = document.getElementById("recipeCount")
 const recipesContainer = document.getElementById("recipesContainer")
 
 export function afficherLesRecettes(recettes) {
+    recipesContainer.innerHTML = ""
     recipeCount.textContent = recettes.length 
     recettes.forEach(function(recette){
         const carte = document.createElement("div")
