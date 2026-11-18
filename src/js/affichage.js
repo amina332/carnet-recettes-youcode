@@ -1,5 +1,6 @@
 const recipeCount = document.getElementById("recipeCount")
 const recipesContainer = document.getElementById("recipesContainer")
+const emptyMessage = document.getElementById("emptyMessage")
 
 export function afficherLesRecettes(recettes) {
     recipesContainer.innerHTML = ""

@@ -3,15 +3,27 @@ import { afficherLesRecettes } from "./affichage.js"
 const searchInput = document.getElementById("searchInput")
 const searchForm = document.getElementById("searchForm")
 const searchButton = document.getElementById("searchButton")
+const showAllBtn = document.getElementById("showAllBtn")
+const emptyMessage = document.getElementById("emptyMessage")
 
 searchButton.addEventListener("click", async(event) =>{
+    showAllBtn.addEventListener("click", () => {
+    emptyMessage.classList.add("hidden")
+    searchInput.value = ""
+    chargerRecettes()
+});
     event.preventDefault()
     const motCle = searchInput.value.trim()
     if(motCle === ""){
         return
     }
     const recettes = await rechercheRecettes(motCle)
-    afficherLesRecettes(recettes)
+    if (recettes.length === 0) {
+        emptyMessage.classList.remove("hidden")
+    } else {
+        emptyMessage.classList.add("hidden")
+        afficherLesRecettes(recettes)
+    }
 })
 
 async function chargerRecettes() {
