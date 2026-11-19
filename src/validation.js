@@ -1,7 +1,7 @@
 export function validerNom(nom) {
 
     if (nom.length < 3 || nom.length > 60) {
-        return "Le nom doit contenir entre 3 et 60 caractères"
+        return "Le nom doit contenir entre 3 et 60 caracteres"
     }
 
     return ""

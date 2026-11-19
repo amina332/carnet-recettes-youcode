@@ -51,8 +51,15 @@ showAllBtn.addEventListener("click", () => {
 const submitBtn = document.getElementById("submitBtn")
 
 submitBtn.addEventListener("click", (event) => {
-    const nameError = validerNom(recipeName.value.trim())
-    const cuisineError = validerCuisine(recipeCuisine.value)
+    const erreurNom = validerNom(recipeName.value.trim())
+    const erreurCuisine = validerCuisine(recipeCuisine.value)
+    const erreurDifficulte = validerDifficulte(recipeDifficulty.value)
+    const erreurTemps = validerTemps(Number(recipeTime.value))
+
+    nameError.textContent = erreurNom
+    cuisineError.textContent = erreurCuisine
+    difficultyError.textContent = erreurDifficulte
+    timeError.textContent = erreurTemps
 });
 async function chargerRecettes() {
     try {
