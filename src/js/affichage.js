@@ -3,8 +3,11 @@ const recipesContainer = document.getElementById("recipesContainer")
 const emptyMessage = document.getElementById("emptyMessage")
 
 export function afficherLesRecettes(recettes) {
+
     recipesContainer.innerHTML = ""
+
     recipeCount.textContent = recettes.length 
+
     recettes.forEach(function(recette){
         const carte = document.createElement("div")
         const image = document.createElement("img")

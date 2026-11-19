@@ -12,7 +12,7 @@ export function validerCuisine(cuisine){
     }
     return""
 }
-export function validerDifficulter(difficulter){
+export function validerDifficulte(difficulter){
     if (difficulter === "") {
         return "veuillez choisir une difficulter"
     }

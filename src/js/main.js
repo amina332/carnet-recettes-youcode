@@ -1,5 +1,11 @@
 import { obtenirRecettes , rechercheRecettes} from "./api.js"
 import { afficherLesRecettes } from "./affichage.js"
+import {
+    validerNom,
+    validerCuisine,
+    validerDifficulte,
+    validerTemps
+} from "../validation.js"
 const searchInput = document.getElementById("searchInput")
 const searchForm = document.getElementById("searchForm")
 const searchButton = document.getElementById("searchButton")
@@ -10,28 +16,44 @@ const recipeName = document.getElementById("recipeName")
 const recipeCuisine = document.getElementById("recipeCuisine")
 const recipeDifficulty = document.getElementById("recipeDifficulty")
 const recipeTime = document.getElementById("recipeTime")
+const nameError = document.getElementById("nameError")
+const cuisineError = document.getElementById("cuisineError")
+const difficultyError = document.getElementById("difficultyError")
+const timeError = document.getElementById("timeError")
 
 
-searchButton.addEventListener("click", async(event) =>{
-    showAllBtn.addEventListener("click", () => {
-    emptyMessage.classList.add("hidden")
-    searchInput.value = ""
-    chargerRecettes()
-});
-    event.preventDefault()
-    const motCle = searchInput.value.trim()
-    if(motCle === ""){
-        return
+searchButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const motCle = searchInput.value.trim();
+
+    if (motCle === "") {
+        return;
     }
-    const recettes = await rechercheRecettes(motCle)
+
+    const recettes = await rechercheRecettes(motCle);
+
     if (recettes.length === 0) {
-        emptyMessage.classList.remove("hidden")
+        emptyMessage.classList.remove("hidden");
+        afficherLesRecettes([]);
     } else {
-        emptyMessage.classList.add("hidden")
-        afficherLesRecettes(recettes)
+        emptyMessage.classList.add("hidden");
+        afficherLesRecettes(recettes);
     }
-})
+});
 
+showAllBtn.addEventListener("click", () => {
+    emptyMessage.classList.add("hidden");
+    searchInput.value = "";
+    chargerRecettes();
+});
+
+const submitBtn = document.getElementById("submitBtn")
+
+submitBtn.addEventListener("click", (event) => {
+    const nameError = validerNom(recipeName.value.trim())
+    const cuisineError = validerCuisine(recipeCuisine.value)
+});
 async function chargerRecettes() {
     try {
         const recettes = await obtenirRecettes()
