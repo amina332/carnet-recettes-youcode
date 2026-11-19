@@ -78,6 +78,7 @@ const nouvelleRecette = {
 try {
     const recetteAjoutee = await ajouterRecette(nouvelleRecette)
     afficherNouvelleRecette(recetteAjoutee)
+    recipeForm.reset();
 } catch (error) {
     console.log("Erreur :", error)
 }
