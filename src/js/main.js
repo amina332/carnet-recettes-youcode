@@ -74,7 +74,9 @@ const nouvelleRecette = {
     cuisine: recipeCuisine.value.trim(),
     difficulty: recipeDifficulty.value,
     prepTimeMinutes: Number(recipeTime.value)
-};
+}
+
+submitBtn.disabled = true /*pour bloquer la boutton */
 
 try {
     const recetteAjoutee = await ajouterRecette(nouvelleRecette)
@@ -86,6 +88,8 @@ try {
 
 } catch (error) {
     console.log("Erreur :", error)
+}finally {
+    submitBtn.disabled = false
 }
 
 })
@@ -96,5 +100,7 @@ async function chargerRecettes() {
     } catch (error) {
         console.log("Erreur :", error)
     }
+
 }
-chargerRecettes();
+chargerRecettes()
+
