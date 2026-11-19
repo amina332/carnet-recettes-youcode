@@ -29,3 +29,38 @@ export function afficherLesRecettes(recettes) {
 
         });  
 }
+
+
+
+export function afficherNouvelleRecette(recette) {
+
+    const carte = document.createElement("div")
+
+    const image = document.createElement("img");
+    image.src = "https://cdn.dummyjson.com/recipe-images/1.webp";
+    image.alt = "Image de recette";
+    carte.appendChild(image);
+
+    const titre = document.createElement("h3")
+    titre.textContent = recette.name
+    carte.appendChild(titre)
+
+
+
+    const cuisine = document.createElement("p")
+    cuisine.textContent = recette.cuisine
+    carte.appendChild(cuisine)
+
+
+    const difficulty = document.createElement("p")
+    difficulty.textContent = recette.difficulty
+    carte.appendChild(difficulty)
+
+
+    const temps = document.createElement("p")
+    temps.textContent = recette.prepTimeMinutes + " min"
+    carte.appendChild(temps)
+
+    recipesContainer.prepend(carte)
+    recipeCount.textContent = Number(recipeCount.textContent) + 1
+}

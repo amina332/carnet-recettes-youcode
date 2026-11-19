@@ -1,5 +1,5 @@
 import { obtenirRecettes , rechercheRecettes , ajouterRecette} from "./api.js"
-import { afficherLesRecettes } from "./affichage.js"
+import { afficherLesRecettes , afficherNouvelleRecette } from "./affichage.js"
 import {
     validerNom,
     validerCuisine,
@@ -76,8 +76,8 @@ const nouvelleRecette = {
 };
 
 try {
-    const recetteAjoutee = await ajouterRecette(nouvelleRecette);
-    console.log(recetteAjoutee)
+    const recetteAjoutee = await ajouterRecette(nouvelleRecette)
+    afficherNouvelleRecette(recetteAjoutee)
 } catch (error) {
     console.log("Erreur :", error)
 }
