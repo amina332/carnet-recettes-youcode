@@ -5,6 +5,12 @@ const searchForm = document.getElementById("searchForm")
 const searchButton = document.getElementById("searchButton")
 const showAllBtn = document.getElementById("showAllBtn")
 const emptyMessage = document.getElementById("emptyMessage")
+const recipeForm = document.getElementById("recipeForm")
+const recipeName = document.getElementById("recipeName")
+const recipeCuisine = document.getElementById("recipeCuisine")
+const recipeDifficulty = document.getElementById("recipeDifficulty")
+const recipeTime = document.getElementById("recipeTime")
+
 
 searchButton.addEventListener("click", async(event) =>{
     showAllBtn.addEventListener("click", () => {
