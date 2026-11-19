@@ -20,6 +20,7 @@ const nameError = document.getElementById("nameError")
 const cuisineError = document.getElementById("cuisineError")
 const difficultyError = document.getElementById("difficultyError")
 const timeError = document.getElementById("timeError")
+const successMessage = document.getElementById("successMessage")
 
 
 searchButton.addEventListener("click", async (event) => {
@@ -78,7 +79,11 @@ const nouvelleRecette = {
 try {
     const recetteAjoutee = await ajouterRecette(nouvelleRecette)
     afficherNouvelleRecette(recetteAjoutee)
-    recipeForm.reset();
+    recipeForm.reset()
+
+        successMessage.textContent = "Recette ajoutee avec succes 😊"
+        successMessage.classList.remove("hidden")
+
 } catch (error) {
     console.log("Erreur :", error)
 }
