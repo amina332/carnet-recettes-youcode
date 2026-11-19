@@ -1,4 +1,4 @@
-import { obtenirRecettes , rechercheRecettes} from "./api.js"
+import { obtenirRecettes , rechercheRecettes , ajouterRecette} from "./api.js"
 import { afficherLesRecettes } from "./affichage.js"
 import {
     validerNom,
@@ -50,7 +50,10 @@ showAllBtn.addEventListener("click", () => {
 
 const submitBtn = document.getElementById("submitBtn")
 
-submitBtn.addEventListener("click", (event) => {
+submitBtn.addEventListener("click", async (event) => {
+
+    event.preventDefault()
+
     const erreurNom = validerNom(recipeName.value.trim())
     const erreurCuisine = validerCuisine(recipeCuisine.value)
     const erreurDifficulte = validerDifficulte(recipeDifficulty.value)
@@ -60,7 +63,26 @@ submitBtn.addEventListener("click", (event) => {
     cuisineError.textContent = erreurCuisine
     difficultyError.textContent = erreurDifficulte
     timeError.textContent = erreurTemps
-});
+
+    if (erreurNom || erreurCuisine || erreurDifficulte || erreurTemps) {
+    return;
+}
+
+const nouvelleRecette = {
+    name: recipeName.value.trim(),
+    cuisine: recipeCuisine.value.trim(),
+    difficulty: recipeDifficulty.value,
+    prepTimeMinutes: Number(recipeTime.value)
+};
+
+try {
+    const recetteAjoutee = await ajouterRecette(nouvelleRecette);
+    console.log(recetteAjoutee)
+} catch (error) {
+    console.log("Erreur :", error)
+}
+
+})
 async function chargerRecettes() {
     try {
         const recettes = await obtenirRecettes()

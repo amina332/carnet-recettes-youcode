@@ -23,4 +23,7 @@ export async function rechercheRecettes(motCle) {
     return response.data.recipes;
 }
 
-
+export async function ajouterRecette(nouvelleRecette) {
+    const response = await api.post("/recipes/add", nouvelleRecette)
+    return response.data
+}
