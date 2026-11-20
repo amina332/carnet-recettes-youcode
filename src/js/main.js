@@ -111,6 +111,7 @@ try {
 async function chargerRecettes() {
     loading.classList.remove("hidden")
     errorMessage.classList.add("hidden")
+
     try {
         const recettes = await obtenirRecettes()
         afficherLesRecettes(recettes)
@@ -119,6 +120,7 @@ async function chargerRecettes() {
     }
 
 }
+
 chargerRecettes()
 
 
