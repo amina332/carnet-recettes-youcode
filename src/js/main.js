@@ -1,4 +1,4 @@
-import { obtenirRecettes , rechercheRecettes , ajouterRecette} from "./api.js"
+import { obtenirRecettes , rechercheRecettes , ajouterRecette , supprimerUneRecette} from "./api.js"
 import { afficherLesRecettes , afficherNouvelleRecette } from "./affichage.js"
 import {
     validerNom,
@@ -6,6 +6,9 @@ import {
     validerDifficulte,
     validerTemps
 } from "../validation.js"
+
+
+
 const searchInput = document.getElementById("searchInput")
 const searchForm = document.getElementById("searchForm")
 const searchButton = document.getElementById("searchButton")
@@ -51,6 +54,7 @@ showAllBtn.addEventListener("click", () => {
 
 const submitBtn = document.getElementById("submitBtn")
 
+
 submitBtn.addEventListener("click", async (event) => {
 
     event.preventDefault()
@@ -93,6 +97,7 @@ try {
 }
 
 })
+
 async function chargerRecettes() {
     try {
         const recettes = await obtenirRecettes()
@@ -103,4 +108,17 @@ async function chargerRecettes() {
 
 }
 chargerRecettes()
+
+
+const recipesContainer = document.getElementById("recipesContainer")
+
+recipesContainer.addEventListener("click" , function(event) {
+    if (event.target.tagName === "BUTTON"){
+
+        const id = event.target.dataset.id
+
+        console.log(id);
+        
+    }
+})
 

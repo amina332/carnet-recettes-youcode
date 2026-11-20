@@ -41,11 +41,6 @@ export function afficherNouvelleRecette(recette) {
     image.alt = "Image de recette";
     carte.appendChild(image);
 
-    const titre = document.createElement("h3")
-    titre.textContent = recette.name
-    carte.appendChild(titre)
-
-
 
     const cuisine = document.createElement("p")
     cuisine.textContent = recette.cuisine
@@ -60,6 +55,18 @@ export function afficherNouvelleRecette(recette) {
     const temps = document.createElement("p")
     temps.textContent = recette.prepTimeMinutes + " min"
     carte.appendChild(temps)
+
+
+    const titre = document.createElement("h3")
+    titre.textContent = recette.name
+    carte.appendChild(titre)
+
+
+
+    const bouttonSuprimer = document.createElement("button")
+    bouttonSuprimer.textContent = "supprimer"
+    bouttonSuprimer.dataset.id = recette.id
+    carte.appendChild(bouttonSuprimer)
 
     recipesContainer.prepend(carte)
     recipeCount.textContent = Number(recipeCount.textContent) + 1

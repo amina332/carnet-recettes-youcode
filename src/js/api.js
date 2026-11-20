@@ -27,3 +27,8 @@ export async function ajouterRecette(nouvelleRecette) {
     const response = await api.post("/recipes/add", nouvelleRecette)
     return response.data
 }
+
+export async function supprimerUneRecette(id) {
+    const response=await api.delete('/recipe/${id}')
+    return response.data
+}
