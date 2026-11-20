@@ -25,6 +25,15 @@ const difficultyError = document.getElementById("difficultyError")
 const timeError = document.getElementById("timeError")
 const successMessage = document.getElementById("successMessage")
 const effacerMessage = document.getElementById("effacerMessage")
+const loading = document.getElementById("loading")
+const errorMessage = document.getElementById("errorMessage")
+const errorText = document.getElementById("errorText")
+const retryBtn = document.getElementById("retryBtn")
+
+function afficherErreur(error) {
+    errorText.textContent = error.message
+    errorMessage.classList.remove("hidden")
+}
 
 
 searchButton.addEventListener("click", async (event) => {
@@ -100,6 +109,8 @@ try {
 })
 
 async function chargerRecettes() {
+    loading.classList.remove("hidden")
+    errorMessage.classList.add("hidden")
     try {
         const recettes = await obtenirRecettes()
         afficherLesRecettes(recettes)
@@ -134,7 +145,7 @@ recipesContainer.addEventListener("click" , function(event) {
 
             .catch(function(error){
     if (error.response && error.response.status === 404) {
-        
+
             console.log("404 détecté");
 
         event.target.parentElement.remove();

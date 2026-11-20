@@ -8,27 +8,75 @@ const api = axios.create({
 
 export default api
 
-export async function obtenirRecettes() {    /*peut ustilier await dans elle */
-    const response = await  api.get("/recipes?limit=12")  /*la commande */
-    return  response.data.recipes  /*returner liste des repas */
+
+function gererErreur(error) {
+    
+    if (!error.response) {
+        return "Serveur injoignable. Vérifiez votre connexion."
+    }
+
+    if (error.response.status === 404) {
+        return "Recette introuvable."
+    }
+
+    if (error.response.status === 500) {
+        return "Erreur du serveur. Réessayez plus tard."
+    }
+
+    return "Une erreur est survenue."
 }
+
+
+
+
+export async function obtenirRecettes() {
+    try {
+        const response = await api.get("/recipes?limit=12")
+        return response.data.recipes
+    } catch (error) {
+        error.message = gererErreur(error)
+        throw error
+    }
+}  
+
+
+
 
 export async function rechercheRecettes(motCle) {
-    const response = await api.get("/recipes/search", {
-        params: {
-            q: motCle
-        }
-    })
+    try {
+        const response = await api.get("/recipes/search", {
+            params: {
+                q: motCle
+            }
+        })
 
-    return response.data.recipes;
+        return response.data.recipes;
+
+    } catch (error) {
+        error.message = gererErreur(error)
+        throw error
+    }
 }
+
 
 export async function ajouterRecette(nouvelleRecette) {
-    const response = await api.post("/recipes/add", nouvelleRecette)
-    return response.data
+    try {
+        const response = await api.post("/recipes/add", nouvelleRecette)
+        return response.data
+    } catch (error) {
+        error.message = gererErreur(error)
+        throw error
+    }
 }
 
+
+
 export async function supprimerUneRecette(id) {
-    const response = await api.delete(`/recipes/${id}`)
-    return response.data
+    try {
+        const response = await api.delete(`/recipes/${id}`)
+        return response.data
+    } catch (error) {
+        error.message = gererErreur(error)
+        throw error
+    }
 }
