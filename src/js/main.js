@@ -131,10 +131,20 @@ recipesContainer.addEventListener("click" , function(event) {
                 effacerMessage.classList.remove("hidden")
                 
             })
+
             .catch(function(error){
-                console.log("Erreur :", error);
-                
-            })
+    if (error.response && error.response.status === 404) {
+        
+            console.log("404 détecté");
+
+        event.target.parentElement.remove();
+
+        effacerMessage.textContent = "La recette est supprimée de la page !";
+        effacerMessage.classList.remove("hidden");
+    } else {
+        console.log("Erreur :", error);
+    }
+})
 }
         
     }
