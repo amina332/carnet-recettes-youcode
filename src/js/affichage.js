@@ -65,6 +65,7 @@ export function afficherNouvelleRecette(recette) {
 
     const bouttonSuprimer = document.createElement("button")
     bouttonSuprimer.textContent = "supprimer"
+    bouttonSuprimer.classList.add("border","border-red-500","text-red-600","rounded","px-3","py-1")
     bouttonSuprimer.dataset.id = recette.id
     carte.appendChild(bouttonSuprimer)
 
