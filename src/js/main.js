@@ -24,6 +24,7 @@ const cuisineError = document.getElementById("cuisineError")
 const difficultyError = document.getElementById("difficultyError")
 const timeError = document.getElementById("timeError")
 const successMessage = document.getElementById("successMessage")
+const effacerMessage = document.getElementById("effacerMessage")
 
 
 searchButton.addEventListener("click", async (event) => {
@@ -116,8 +117,25 @@ recipesContainer.addEventListener("click" , function(event) {
     if (event.target.tagName === "BUTTON"){
 
         const id = event.target.dataset.id
+        console.log("ID a supprimer :", id)
 
-        console.log(id);
+        const confirmation = confirm("Voulez-vous supprimer cette recette ?")
+
+
+        if (confirmation) {
+            supprimerUneRecette(id)
+            .then(function(){
+                 event.target.parentElement.remove()
+
+                effacerMessage.textContent = "la recette est suprimee"
+                effacerMessage.classList.remove("hidden")
+                
+            })
+            .catch(function(error){
+                console.log("Erreur :", error);
+                
+            })
+}
         
     }
 })
